@@ -12,7 +12,12 @@ class main array1 {
             chosen = sc.nextInt;
         }
 
-        System.out.println(arr[chosen]);
+        for (int equal = 0; equal <= arr.length - 1; equal++){
+            if (arr[equal] =  chosen) {
+                System.out.println(equal);
+                break;
+            }
+        }
 
     }
 }
