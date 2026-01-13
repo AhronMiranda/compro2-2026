@@ -7,7 +7,7 @@ import java.util.Scanner;
             System.out.print(arr[i] + ", ");
         }
 
-        System.out.print("Enter an number in the array: ");
+        System.out.print("\nEnter an number in the array: ");
         int chosen = sc.nextInt();
 
         for (int equal = 0; equal <= arr.length - 1; equal++){
