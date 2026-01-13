@@ -8,7 +8,7 @@ import java.util.Scanner;
         }
 
         System.out.print("Enter an number in the array: ");
-        int chosen = sc.nextInt;
+        int chosen = sc.nextInt();
 
         for (int equal = 0; equal <= arr.length - 1; equal++){
             if (arr[equal] ==  chosen) {
