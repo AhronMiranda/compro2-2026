@@ -5,12 +5,11 @@ class main array1 {
             System.out.println(arr[i]);
         }
         Scanner sc = new Scanner(System.in);
-        int chosen = 0;
 
-        System.out.print("Enter an index in the array 0-9: ");
-        while (sc <= 9 && sc >= 0) {
-            chosen = sc.nextInt;
-        }
+
+        System.out.print("Enter an number in the array: ");
+        int chosen = sc.nextInt;
+        
 
         for (int equal = 0; equal <= arr.length - 1; equal++){
             if (arr[equal] =  chosen) {
