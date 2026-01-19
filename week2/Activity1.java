@@ -7,7 +7,7 @@ public class Activity1 {
         theaterRow[3] = 1;
 
         int count = 0;
-        for (int i = 0; i < theaterRow.length - 1; i++) {
+        for (int i = 0; i < theaterRow.length; i++) {
             if (theaterRow[i] == 1) {
                 System.out.println("Seat " + i + " is Taken");
                 count += 1;
@@ -16,6 +16,6 @@ public class Activity1 {
             }
             
         }
-        System.out.println("Number of Available seats: " + (theaterRow.length - 1));
+        System.out.println("Number of Available seats: " + (theaterRow.length - count));
     }
 }
