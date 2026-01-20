@@ -46,6 +46,8 @@ public class TheaterSeating2D {
         System.out.println("\nThe number of booked seats are " + count + " out of " + totalSeats + " seats");
         System.out.println("Total seats available: " + (totalSeats - count));
 
+
+        // BOOK A SEAT 
         System.out.println("BOOK A SEAT??");
         System.out.print("Y/N:");
 
