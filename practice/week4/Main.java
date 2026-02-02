@@ -28,10 +28,9 @@ public class Main {
             System.out.println("invalid input");
         }
         
-        try (FileWriter fw = new FileWriter("dataa.txt")) {
+        try (FileWriter fw = new FileWriter("data.txt")) {
             fw.write(sb.toString());
             System.out.println("Data is saved...");
-            fw.flush();
         } catch (InputMismatchException e) {
             System.out.println(e.getMessage());
         }
