@@ -28,16 +28,11 @@ public class Main {
             System.out.println("invalid input");
         }
         
-        try (FileWriter fw = new FileWriter("data.txt")) {
+       try(FileWriter fw = new FileWriter("data.txt")){
             fw.write(sb.toString());
             System.out.println("Data is saved...");
-        } catch (InputMismatchException e) {
+        }catch(IOException e){
             System.out.println(e.getMessage());
         }
-
-
-
-
-
     }
 }
