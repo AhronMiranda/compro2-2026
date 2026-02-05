@@ -97,7 +97,7 @@ public class NestedMenu {
                 System.out.println("Saving the grades...");
                 break;
             case 2:
-                System.out.print("Enter Grades for DSA:");
+                System.out.println("Enter Grades for DSA:");
                 for (int i = 0; i < DSA.length; i++) {
                     switch (i) {
                         case 0:
@@ -117,7 +117,7 @@ public class NestedMenu {
                 System.out.println("Saving the grades...");
                 break;
             case 3:
-                System.out.print("Enter Grades for OOP:");
+                System.out.println("Enter Grades for OOP:");
                 for (int i = 0; i < OOP.length; i++) {
                     switch (i) {
                         case 0:
