@@ -162,7 +162,7 @@ public class CsvReader {
             System.out.println("Error: " + e.getMessage());
         }
 
-        System.out.println(sb.toString());
+        System.out.println(sb.toString().replace(",", " | ")); //To make the final print look cleaner in the terminal
 
     }// write
 
