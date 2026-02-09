@@ -15,6 +15,8 @@ public class CsvReader {
         int answer = 0;
 
         Scanner sc = new Scanner(System.in);
+
+        while (true) {
         System.out.println("""
                 [1] Add Grade
                 [2] Display Grades
@@ -30,7 +32,12 @@ public class CsvReader {
             sc.nextLine();
 
         } catch (InputMismatchException e) {
-            System.out.println("Invalid number");
+            System.out.println("[ERROR] Invalid number");
+            sc.nextLine();
+            System.out.print("User>> ");
+            answer = sc.nextInt();
+            sc.nextLine();
+            
         }
 
         switch (answer) {
@@ -81,6 +88,9 @@ public class CsvReader {
                         if (answer == 1) {
                             noSub++;
                             continue;
+                        } else if (answer == 3) {
+                            System.out.println("Exiting the terminal...");
+                            System.exit(0);
                         } else {
                             System.out.println("[Grades registered]");
                             break;
@@ -95,44 +105,42 @@ public class CsvReader {
                 break;
 
             case 2:
-                
-                // OPTION 1
-                // for (Grades g : grades) {
-                // System.out.println(g.subject + " | Prelim: " + g.prelims +
-                // " | Midterm: " + g.midterm +
-                // " | Finals: " + g.finals);
-                // }
+                 try (BufferedReader br = new BufferedReader(new FileReader("Act5.csv"))) {
+            //FOR READING EXISTING DATA
+        String line;
+        br.readLine(); // skip header
 
-                // OPTION 2 BUFFERED READER 
-                try (BufferedReader br = new BufferedReader(new FileReader("Act5.csv"))) {
-                     // READS CREATED CSV OR PREVIOUS CSV SAVE
-                   
-                    String line;
-                    br.readLine();
-                    int i = 0;
-                    while ((line = br.readLine()) != null) {
-                        String[] arr = line.split(",");
-                        Grades g = new Grades();
-                        g.subject = arr[0];
-                        g.prelims = Double.parseDouble(arr[1]);
-                        g.midterm = Double.parseDouble(arr[2]);
-                        g.finals = Double.parseDouble(arr[3]);
-                        grades.add(g);
-                        
+        boolean hasData = false;
+        System.out.println("SUBJECT | PRELIMS | MIDTERM | FINALS \n********************");
+        while ((line = br.readLine()) != null) {
+            String[] arr = line.split(",");
 
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    System.out.println("[ERROR] No data to interpret \n ****ADD GRADES FIRST**** ");
-                } 
+            Grades g = new Grades();
+            g.subject = arr[0];
+            g.prelims = Double.parseDouble(arr[1]);
+            g.midterm = Double.parseDouble(arr[2]);
+            g.finals = Double.parseDouble(arr[3]);
 
-                break;
+            
+            System.out.println(g.subject + " | Prelim: " + g.prelims + " | Midterm: " + g.midterm + " | Finals: " + g.finals);
+            hasData = true;
+        }
+
+        if (!hasData) {
+            System.out.println("[No grades found]");
+        }
+
+    } catch (IOException e) {
+        System.out.println("[ERROR] CSV file not found \n****ADD GRADES FIRST****\n");
+    }
+    
+    break;
             case 3:
                 System.out.println("Exiting the terminal...");
-                break;
+                System.exit(0);
         }
-    
+        
+    }
     }
 
     public static void writeData() {
