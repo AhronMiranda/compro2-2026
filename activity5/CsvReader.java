@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import activity5.CsvReader.Grades;
+
 public class CsvReader {
 
     static List<Grades> grades = new ArrayList<>();
@@ -16,16 +18,9 @@ public class CsvReader {
 
         Scanner sc = new Scanner(System.in);
 
-        while (true) {
-        System.out.println("""
-                [1] Add Grade
-                [2] Display Grades
-                [3] Exit
-                """);
-
-        System.out.print("User>> ");
-
+        while (true) { //So it will loop until you choose 3
         
+            printMenu();
 
         try {
             answer = sc.nextInt();
@@ -76,12 +71,7 @@ public class CsvReader {
                     grades.add(a);
                     sc.nextLine();
 
-                    System.out.println("""
-                            [1] Add Grade
-                            [2] Display Grades
-                            [3] Exit
-                            """);
-                    System.out.print("User>> ");
+                    printMenu();
                     try {
                         answer = sc.nextInt();
                         sc.nextLine();
@@ -133,7 +123,7 @@ public class CsvReader {
     } catch (IOException e) {
         System.out.println("[ERROR] CSV file not found \n****ADD GRADES FIRST****\n");
     }
-    
+    System.out.println();
     break;
             case 3:
                 System.out.println("Exiting the terminal...");
@@ -165,6 +155,16 @@ public class CsvReader {
         System.out.println(sb.toString().replace(",", " | ")); //To make the final print look cleaner in the terminal
 
     }// write
+
+    public static void printMenu() {
+        System.out.println("""
+                [1] Add Grade
+                [2] Display Grades
+                [3] Exit
+                """);
+
+        System.out.print("User>> ");
+    }
 
     static class Grades {
         String subject;
