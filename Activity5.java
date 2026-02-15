@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class SearchOption {
+public class Activity5 {
 
     static List<Grades> grades = new ArrayList<>();
     static Scanner sc = new Scanner(System.in);
