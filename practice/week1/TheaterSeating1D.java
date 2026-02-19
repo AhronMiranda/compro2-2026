@@ -1,9 +1,9 @@
-package practice.week1;
+
 
 
 import java.util.Scanner;
 
-public class Activity1 {
+public class TheaterSeating1D {
     public static void main(String[] args) {
 
         int[] theaterRow = new int[8];
