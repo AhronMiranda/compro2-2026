@@ -1,4 +1,4 @@
-package activity5;
+package practice.week6.activity5oldVersions;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,16 +7,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import activity5.CsvReader.Grades;
-
-public class CsvReader {
+public class SearchOption {
 
     static List<Grades> grades = new ArrayList<>();
+    static Scanner sc = new Scanner(System.in);
+    static int answer = 0;
 
     public static void main(String[] args) {
-        int answer = 0;
-
-        Scanner sc = new Scanner(System.in);
 
         while (true) { //So it will loop until you choose 3
         
@@ -27,18 +24,71 @@ public class CsvReader {
             sc.nextLine();
 
         } catch (InputMismatchException e) {
-            System.out.println("[ERROR] Invalid number");
+            System.out.println("[ERROR] Invalid Input");
             sc.nextLine();
             System.out.print("User>> ");
             answer = sc.nextInt();
             sc.nextLine();
-            
         }
 
         switch (answer) {
 
             case 1:
+                addSubjectGrades();
+                writeData();
+                break;
+            case 2:
+                BufferedReaderDisplay();
+                break;
+            case 3:
+                System.out.print("Search: ");
+                BufferedReaderSearch();
+                System.out.println();
+                break;
+            case 0:
+                System.out.println("Exiting the terminal...");
+                System.exit(0);
+        }
+        
+    }
+    } // MAIN
 
+    public static void printMenu() {
+        System.out.println("""
+                [1] Add Grade
+                [2] Display Grades
+                [3] Search
+                [0] Exit
+                """);
+
+        System.out.print("User>> ");
+    }// Menu
+
+    public static void writeData() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Subject,Prelim,Midterm,Finals\n");
+        for (Grades g : grades) {
+            sb.append(g.subject).append(",")
+                    .append(g.prelims).append(",")
+                    .append(g.midterm).append(",")
+                    .append(g.finals).append("\n");
+
+        } 
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Act6.csv"))) {
+            bw.write(sb.toString());
+            bw.flush();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        System.out.println(sb.toString().toUpperCase().replace(",", " | ")); //To make the final print look cleaner in the terminal
+
+    }// write
+
+    public static void addSubjectGrades() {
+        
                 int noSub = 1;
 
                 for (int r = 0; r < noSub; r++) {
@@ -91,11 +141,10 @@ public class CsvReader {
 
                     System.out.println();
                 }
-                writeData();
-                break;
+    }// Add Subject
 
-            case 2:
-                 try (BufferedReader br = new BufferedReader(new FileReader("Act5.csv"))) {
+    public static void BufferedReaderDisplay() {
+        try (BufferedReader br = new BufferedReader(new FileReader("Act6.csv"))) {
             //FOR READING EXISTING DATA
         String line;
         br.readLine(); // skip header
@@ -123,48 +172,55 @@ public class CsvReader {
     } catch (IOException e) {
         System.out.println("[ERROR] CSV file not found \n****ADD GRADES FIRST****\n");
     }
-    System.out.println();
-    break;
-            case 3:
-                System.out.println("Exiting the terminal...");
-                System.exit(0);
+    }// Reader | Display 
+
+    public static void BufferedReaderSearch() {
+        grades.clear();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("Act6.csv"))) {
+        String line;
+        br.readLine(); // skip header
+
+        while ((line = br.readLine()) != null) {
+            String[] arr = line.split(",");
+
+            Grades g = new Grades();
+            g.subject = arr[0];
+            g.prelims = Double.parseDouble(arr[1]);
+            g.midterm = Double.parseDouble(arr[2]);
+            g.finals = Double.parseDouble(arr[3]);
+
+            grades.add(g);
         }
+    } catch (IOException e) {
+        System.out.println("[ERROR] CSV file not found \n****ADD GRADES FIRST****\n");
+        return;
+    }
+
+        String searchString = sc.nextLine();
+
+        boolean hasData = false;
         
-    }
-    }
+            Grades g = new Grades();
+            List<Grades> filteredGrades = grades.stream().filter((f) ->
+            f.subject.toLowerCase().contains(searchString.toLowerCase())
+                || f.prelims == tryParseDouble(searchString)
+                || f.midterm == tryParseDouble(searchString)
+                || f.finals == tryParseDouble(searchString)
+            ).toList();
 
-    public static void writeData() {
-        StringBuilder sb = new StringBuilder();
+            
 
-        sb.append("Subject,Prelim,Midterm,Finals\n");
-        for (Grades g : grades) {
-            sb.append(g.subject).append(",")
-                    .append(g.prelims).append(",")
-                    .append(g.midterm).append(",")
-                    .append(g.finals).append("\n");
-
+            for(Grades f : filteredGrades) {
+                hasData = true;
+                System.out.printf("%s | %.2f | %.2f | %.2f", f.subject, f.prelims, f.midterm, f.finals);
+            }
+        if (!hasData) {
+            System.out.println("[No Data Found]");
         }
-
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Act5.csv"))) {
-            bw.write(sb.toString());
-            bw.flush();
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        System.out.println(sb.toString().replace(",", " | ")); //To make the final print look cleaner in the terminal
-
-    }// write
-
-    public static void printMenu() {
-        System.out.println("""
-                [1] Add Grade
-                [2] Display Grades
-                [3] Exit
-                """);
-
-        System.out.print("User>> ");
-    }
+    System.out.println();
+    
+    }// Reader | Search
 
     static class Grades {
         String subject;
@@ -173,4 +229,12 @@ public class CsvReader {
         double finals;
 
     }
+
+    static double tryParseDouble(String s) {
+    try {
+        return Double.parseDouble(s);
+    } catch (NumberFormatException e) {
+        return Double.NaN;
+    }
+}
 }

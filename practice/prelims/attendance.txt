@@ -1,0 +1,5 @@
+Student,Attendance Marks
+Ahron,1, 0, 1, 1
+Keizer,1, 1, 0, 0
+Liam,1, 1, 1, 1
+Prian,1, 0, 1, 0

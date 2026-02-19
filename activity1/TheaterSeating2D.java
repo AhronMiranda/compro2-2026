@@ -1,8 +1,13 @@
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TheaterSeating2D {
+
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
     public static void main(String[] args) {
         // 1. Declare and initialize the 2D array for the theater
         int[][] theater = new int[5][8]; // 5 rows, 8 columns
@@ -24,16 +29,15 @@ public class TheaterSeating2D {
         int count = 0;
         int totalSeats = 0;
         
-        //System.out.println("c1  c2  c3  c4  c5  c6  c7  c8");
 
         for (int i = 0; i < theater.length; i++) {
             for(int j = 0; j < theater[i].length; j++) {
 
             if (theater[i][j] == 0) {
-                System.out.print( "|-| ");
+                System.out.print( GREEN + "|-| " + RESET);
                 totalSeats++;
             } else {
-                System.out.print( "|x| ");
+                System.out.print( RED + "|x| " + RESET);
                 totalSeats++;
                 count++;
             }
@@ -48,19 +52,28 @@ public class TheaterSeating2D {
 
 
         // BOOK A SEAT 
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+        
+        try {
         System.out.println("BOOK A SEAT??");
         System.out.print("Y/N:");
+        
 
-        Scanner sc = new Scanner(System.in);
         String answ = sc.nextLine();
         char answer = answ.charAt(0);
 
+        if (answer == 'n' || answer == 'N') {
+            System.out.println(RED + "[SYSTEM EXIT]" + RESET);
+            break;
+        }
+        
         while (answer == 'y' || answer == 'Y') {
             System.out.print("Enter Row:");
             int a = sc.nextInt();
             System.out.print("Enter Column:");
             int b = sc.nextInt();
-            
+            sc.nextLine();
             count = 0;
 
             theater[a][b] = 1;
@@ -69,9 +82,9 @@ public class TheaterSeating2D {
             for(int j = 0; j < theater[i].length; j++) {
 
             if (theater[i][j] == 0) {
-                System.out.print( "|-| ");
+                System.out.print(  GREEN + "[-] " + RESET);
             } else {
-                System.out.print( "|x| ");
+                System.out.print( RED + "[x] " + RESET);
                 count++;
             }
             }
@@ -82,7 +95,14 @@ public class TheaterSeating2D {
         System.out.println("Total seats available: " + (totalSeats - count));
         break;
         }
-
+        } catch (InputMismatchException e) {
+        System.out.print("[ERROR RESTART?] Y/N:");
+        String answ = sc.nextLine();
+        continue;
+        } catch (IndexOutOfBoundsException e) {
+        continue;
+        }
+        }
         
         
     } //MAIN

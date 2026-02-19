@@ -1,3 +1,4 @@
+package practice.week1;
 
 
 import java.util.Scanner;
