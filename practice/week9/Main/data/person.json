@@ -1,0 +1,12 @@
+{
+    "firstName": "Ahron",
+    "lastName": "Miranda",
+    "age": 4,
+    "emailAddress": "ahronjieannekent.miranda@lorma.edu",
+    "phoneNumber" : "+639672169260",
+    "dateOfBirth" : "2006-09-05",
+    "homeAddress" : "Sevilla",
+    "isEmployed" : false,
+    "nationality" : "Filipino",
+    "gender" : "male"
+}
