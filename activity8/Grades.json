@@ -1,0 +1,26 @@
+[
+  {
+    "subject": "compro",
+    "prelims": 90.0,
+    "midterms": 91.0,
+    "finals": 92.0
+  },
+  {
+    "subject": "compro2",
+    "prelims": 93.0,
+    "midterms": 94.0,
+    "finals": 95.0
+  },
+  {
+    "subject": "datastruct",
+    "prelims": 90.0,
+    "midterms": 89.0,
+    "finals": 87.0
+  },
+  {
+    "subject": "oop",
+    "prelims": 87.0,
+    "midterms": 89.0,
+    "finals": 95.0
+  }
+]
