@@ -8,7 +8,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class NetwordService {
-    
+    private String host;
+    private int port;
+
+    public NetwordService(String host, int port){
+        this.host = host;
+        this.port = port;
+    }    
     public String fetchData(String host, int port, String path){
         StringBuilder response = new StringBuilder();
         //socket
@@ -46,5 +52,9 @@ public class NetwordService {
         }
 
         return response.toString();
+    }
+
+    public voide sendData(String host, String post) {
+
     }
 }
