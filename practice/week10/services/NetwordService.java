@@ -20,7 +20,7 @@ public class NetwordService {
         //send a request
         System.out.println("Connected to server..");
         //send a HTTP request
-        out.print("GET" + path + "HTTP/1.1 \r\n");
+        out.print("GET " + path + " HTTP/1.1 \r\n");
         out.print("Host: " + host + "\r\n");
         out.print("User-Agent: Java/SocketDemo \r\n");
         out.print("Accept: application/json \r\n");
