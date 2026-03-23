@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,8 +7,8 @@ import java.util.Scanner;
 
 public class Client{
     public static void main(String[] args) {
-        String server = "localhost"; //same as 127.0.0.1
-        int  port = 8000;
+        String server = "192.168.4.235"; //same as 127.0.0.1
+        int  port = 6768;
 
         try(Socket socket = new Socket(server, port); 
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -17,7 +16,7 @@ public class Client{
             Scanner sc = new Scanner(System.in);
         ){
             
-            System.out.println("Connected to the server. Welcome");
+            System.out.println("Ahron Connected to the server. Welcome");
 
             while(true){
                 //type your message
