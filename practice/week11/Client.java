@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class Client{
     public static void main(String[] args) {
-        String server = "192.168.4.235"; //same as 127.0.0.1
-        int  port = 6768;
+        String server = "192.168.4.241"; //same as 127.0.0.1
+        int  port = 8000;
 
         try(Socket socket = new Socket(server, port); 
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -20,7 +20,7 @@ public class Client{
 
             while(true){
                 //type your message
-                System.out.println("Your turn (Client): ");
+                System.out.println("Your turn (Ahron): ");
                 String message = sc.nextLine();
 
                 //send your message
@@ -46,7 +46,7 @@ public class Client{
             
         }catch(IOException e){
             System.out.println("Can't connect right now...");
-        }
+        } 
 
     }
 }

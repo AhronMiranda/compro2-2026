@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Server {
     public static void main(String[] args) {
-        
         int port = 8000;
 
         try(ServerSocket server = new ServerSocket(port); 
