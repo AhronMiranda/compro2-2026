@@ -10,6 +10,7 @@ public class Server {
     public static void main(String[] args) {
         
         Socket socket = null;
+        Socket socket2 = null;
         InputStreamReader inputStreamReader = null;
         OutputStreamWriter outputStreamWriter = null;
         BufferedReader bufferedReader = null;
@@ -21,6 +22,8 @@ public class Server {
         while (true) {
             try {
                 socket = serverSocket.accept();
+                socket2 = serverSocket.accept();
+
                 inputStreamReader = new InputStreamReader(socket.getInputStream());
                 outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());
 
@@ -39,6 +42,7 @@ public class Server {
                         break;
 
                     socket.close();
+                    socket2.close();
                     inputStreamReader.close();
                     outputStreamWriter.close();
                     bufferedReader.close();
