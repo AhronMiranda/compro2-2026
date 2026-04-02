@@ -61,7 +61,8 @@ public class Server {
                         file ="hard.txt";
                         break;
                         default:
-                            out.println("[DEFAULT INITIALIZED] EASY MODE");
+                            out.println(RED + "[INPUT NOT RECOGNIZED]" + RESET +
+                            "[DEFAULT INITIALIZED] EASY MODE");
                             file = "easy.txt";
                     };
 
