@@ -1,0 +1,23 @@
+[
+  {
+    "username": "Ahron",
+    "password": 1234,
+    "wins": 9,
+    "loses": 3,
+    "winrate": 75
+  },
+  {
+    "username": "Kent",
+    "password": 0,
+    "wins": 2,
+    "loses": 6,
+    "winrate": 25
+  },
+  {
+    "username": "Helen",
+    "password": 987,
+    "wins": 1,
+    "loses": 3,
+    "winrate": 25
+  }
+]
