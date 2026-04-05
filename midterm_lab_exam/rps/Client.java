@@ -253,7 +253,9 @@ public class Client {
         }
     }
 
-    /*
+}
+
+/*
     Explaination for Sir
 
     I added Confirmation logic on the Client Side by allowing the Internals to access the json file which is basically the database.
@@ -266,6 +268,12 @@ public class Client {
     I made sure to incorporate basic abstraction like the vocal instruction said during class, and I also made sure to use my own logic
     when dealing with what happens "under the hood" in the Rock Paper Scissors Program.
 
+    I also made the Add win and Add lose logic so that the Player data model
+    is being manipulated directly before being saved.
+
+    Its better as a method rather than setting wins and loses since
+    it will require more calculation and saving the before or after, or keeping track of old data
+    by having add win and add lose the model does it for you.
+
     Overall I think this is a pretty good code logic for it.
     */
-}
