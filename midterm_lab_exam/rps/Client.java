@@ -151,7 +151,7 @@ public class Client {
         }
 
         while (true) {
-            System.out.print("Password: ");
+            System.out.print("Passcode: ");
             int pw = intInput();
 
             if (foundUser.getPassword() == pw) {
@@ -194,7 +194,7 @@ public class Client {
             }
         }
 
-        System.out.print("Password: ");
+        System.out.print("Passcode: ");
         int pw = intInput();
         
         
