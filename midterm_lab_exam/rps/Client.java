@@ -252,28 +252,4 @@ public class Client {
             }
         }
     }
-
 }
-
-/*
-    Explaination for Sir
-
-    I added Confirmation logic on the Client Side by allowing the Internals to access the json file which is basically the database.
-    Before the Client will pass on the username and password text to the server, the actual login details and registering details will be confirmed beforehand
-    through the client authentication logic, so yes I am opening the Json file on both the Data Handler and the Client program, 
-    however one is done to authenticate the player client side, and create a new player if they choose to register,
-    while the Data Handler Program focuses more on adjusting player stats, assigning, file handling, and sorting.
-    
-    The Server Program acts as the middle ground where all the communication between the programs happen.
-    I made sure to incorporate basic abstraction like the vocal instruction said during class, and I also made sure to use my own logic
-    when dealing with what happens "under the hood" in the Rock Paper Scissors Program.
-
-    I also made the Add win and Add lose logic so that the Player data model
-    is being manipulated directly before being saved.
-
-    Its better as a method rather than setting wins and loses since
-    it will require more calculation and saving the before or after, or keeping track of old data
-    by having add win and add lose the model does it for you.
-
-    Overall I think this is a pretty good code logic for it.
-    */

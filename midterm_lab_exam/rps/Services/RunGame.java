@@ -45,6 +45,13 @@ public class RunGame {
                 user>>
             """);
 
+            if (in1 != null) {
+                out1.println("Waiting for other player.");
+            }
+            if (in2 != null) {
+                out2.println("Waiting for other player.");
+            }
+
             String m1Str = in1.readLine();
             String m2Str = in2.readLine();
 
