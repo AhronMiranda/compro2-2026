@@ -62,6 +62,12 @@ public class RunGame {
             int m1 = Character.getNumericValue(m1Str.charAt(0));
             int m2 = Character.getNumericValue(m2Str.charAt(0));
 
+            if (m1 > 3 || m2 > 3) {
+                out1.println(RED + "Invalid input from a Player!" + RESET);
+                out2.println(RED + "Invalid input from a Player!" + RESET);
+                continue;
+            }
+
             if (m1 == 0 || m2 == 0) {
                 out1.println(RED + "GAME END" + RESET);
                 out2.println(RED + "GAME END" + RESET);
