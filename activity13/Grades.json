@@ -1,0 +1,26 @@
+[
+  {
+    "name": "COMPRO 1",
+    "prelim": 90.0,
+    "midterm": 92.0,
+    "finals": 93.0
+  },
+  {
+    "name": "COMPRO2",
+    "prelim": 94.0,
+    "midterm": 95.0,
+    "finals": 70.0
+  },
+  {
+    "name": "DSA",
+    "prelim": 93.0,
+    "midterm": 94.0,
+    "finals": 95.0
+  },
+  {
+    "name": "CFVE",
+    "prelim": 90.0,
+    "midterm": 91.0,
+    "finals": 92.0
+  }
+]
