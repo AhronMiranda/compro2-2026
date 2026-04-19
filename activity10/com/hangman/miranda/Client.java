@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import com.hangman.miranda.services.PlayerService;
 
 public class Client {
 
@@ -104,11 +105,11 @@ public class Client {
 
         switch (intInput()) {
             case 1:
-                loadRegistered();
+                users = PlayerService.load();
                 login();
                 break;
             case 2:
-                loadRegistered();
+                users = PlayerService.load();
                 register();
                 break;
             case 0: 
@@ -117,7 +118,7 @@ public class Client {
             default:
                 System.out.println(RED + "[INPUT NOT RECOGNIZED]" + RESET +
                 "[RUNNING DEFAULTS] Register new Player");
-                loadRegistered();
+                users = PlayerService.load();
                 register();
                 break;
         }
@@ -163,7 +164,7 @@ public class Client {
         users.add(p);
         currentUser = p;
 
-        saveRegister();
+        PlayerService.save(users);
 
         System.out.println(GREEN + "Registered!" + RESET);
     }
@@ -174,7 +175,7 @@ public class Client {
 
         if (score > user.getScore()) {
             user.setScore(score);
-            saveRegister();
+            PlayerService.save(users);
         }
 
         while (true) {
@@ -195,13 +196,13 @@ public class Client {
                 case 1:
                     return;
                 case 2:
-                    printLeaderboard();
+                    PlayerService.leaderboard(users);
                     break;
                 case 0: greeting(); return;
                 default:
                 System.out.println(RED + "[INPUT NOT RECOGNIZED]" + RESET +
                 "[DEFAULT] Printing the Leaderboard. \n\n");
-                printLeaderboard();
+                PlayerService.leaderboard(users);
                 break;
             }
         }
