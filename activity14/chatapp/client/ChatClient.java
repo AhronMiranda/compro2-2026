@@ -8,37 +8,68 @@ public class ChatClient {
 
     private static Scanner scanner = new Scanner(System.in);
 
+    // STATUS FLAGS
+    private static volatile boolean loginSuccess = false;
+    private static volatile boolean loginFail = false;
+
+    private static volatile boolean registerSuccess = false;
+    private static volatile boolean registerFail = false;
+
     public static void main(String[] args) {
 
         try (
                 Socket socket = new Socket("localhost", 12345);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);) {
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
+        ) {
+
+            // RECEIVER THREAD
+            new Thread(() -> {
+                try {
+                    String msg;
+                    while ((msg = in.readLine()) != null) {
+
+                        System.out.println(msg);
+
+                        // LOGIN FLAGS
+                        if (msg.equals("[LOGGED IN]")) loginSuccess = true;
+                        if (msg.equals("[LOGIN FAILED]")) loginFail = true;
+
+                        // REGISTER FLAGS
+                        if (msg.equals("[REGISTERED]")) registerSuccess = true;
+                        if (msg.equals("[USER EXISTS]")) registerFail = true;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
 
             boolean running = true;
 
             while (running) {
 
-                menu(); // MENU
-                int choice = intInput("Select option: "); // INPUT
+                menu();
+
+                int choice = intInput("Select: ");
 
                 switch (choice) {
 
-                    case 1: // LOGIN
-                        handleLogin(in, out);
+                    case 1:
+                        resetFlags();
+
+                        if (login(out)) {
+                            chat(out);
+                        }
                         break;
 
-                    case 2: // REGISTER
-                        handleRegister(in, out);
+                    case 2:
+                        resetFlags();
+                        register(out);
                         break;
 
-                    case 3: // EXIT
-                        System.out.println("Exiting...");
+                    case 3:
                         running = false;
                         break;
-
-                    default:
-                        System.out.println("Invalid choice.");
                 }
             }
 
@@ -47,110 +78,102 @@ public class ChatClient {
         }
     }
 
+    // RESET FLAGS BEFORE EACH ATTEMPT
+    static void resetFlags() {
+        loginSuccess = false;
+        loginFail = false;
+        registerSuccess = false;
+        registerFail = false;
+    }
+
     // MENU
-    public static void menu() {
-        System.out.println("+----------------------+");
-        System.out.println("|      CHAT MENU       |");
-        System.out.println("+----------------------+");
-        System.out.println("| [1] Login            |");
-        System.out.println("| [2] Register         |");
-        System.out.println("| [3] Exit             |");
-        System.out.println("+----------------------+");
+    static void menu() {
+        System.out.println("+------------------+");
+        System.out.println("| [1] LOGIN        |");
+        System.out.println("| [2] REGISTER     |");
+        System.out.println("| [3] EXIT         |");
+        System.out.println("+------------------+");
     }
 
-    // INPUT
-    public static int intInput(String prompt) {
+    static int intInput(String prompt) {
         System.out.print(prompt);
-        while (!scanner.hasNextInt()) {
-            System.out.print("Enter a number: ");
-            scanner.next();
-        }
-        int value = scanner.nextInt();
-        scanner.nextLine(); // CLEAR
-        return value;
+        int val = scanner.nextInt();
+        scanner.nextLine();
+        return val;
     }
 
-    // INPUT
-    public static String strInput(String prompt) {
+    static String strInput(String prompt) {
         System.out.print(prompt);
         return scanner.nextLine();
     }
 
-    // LOGIN
-    private static void handleLogin(BufferedReader in, PrintWriter out) throws IOException {
+    // LOGIN (NOW RETURNS BOOLEAN)
+    static boolean login(PrintWriter out) {
 
-        while (true) { // LOOP
+        String user = strInput("Username: ");
+        String pass = strInput("Password: ");
 
-            System.out.println("\n+----------------------+");
-            System.out.println("|        LOGIN         |");
-            System.out.println("+----------------------+");
-            System.out.println("| [1] Continue         |");
-            System.out.println("| [0] Back             |");
-            System.out.println("+----------------------+");
+        out.println("LOGIN");
+        out.println(user);
+        out.println(pass);
 
-            int choice = intInput("Choice: ");
+        // WAIT FOR RESPONSE
+        while (!loginSuccess && !loginFail) {
+            sleep(50);
+        }
 
-            if (choice == 0)
-                return; // BACK
-
-            String username = strInput("Username: ");
-            String password = strInput("Password: ");
-
-            out.println("LOGIN");
-            out.println(username);
-            out.println(password);
-
-            String response = in.readLine();
-            System.out.println(response);
-
-            if (response.contains("successful")) {
-                chatLoop(out); // CHAT
-                break;
-            }
+        if (loginSuccess) {
+            System.out.println("[SYSTEM] Login successful. Entering chat...");
+            return true;
+        } else {
+            System.out.println("[SYSTEM] Login failed. Returning to menu.");
+            return false;
         }
     }
 
-    // REGISTER
-    private static void handleRegister(BufferedReader in, PrintWriter out) throws IOException {
+    // REGISTER (RETURN TO MENU ALWAYS)
+    static void register(PrintWriter out) {
 
-        while (true) { // LOOP
+        String user = strInput("Username: ");
+        String pass = strInput("Password: ");
 
-            System.out.println("\n+----------------------+");
-            System.out.println("|      REGISTER        |");
-            System.out.println("+----------------------+");
-            System.out.println("| [1] Continue         |");
-            System.out.println("| [0] Back             |");
-            System.out.println("+----------------------+");
+        out.println("REGISTER");
+        out.println(user);
+        out.println(pass);
 
-            int choice = intInput("Choice: ");
+        // WAIT FOR RESPONSE
+        while (!registerSuccess && !registerFail) {
+            sleep(50);
+        }
 
-            if (choice == 0)
-                return; // BACK
-
-            String username = strInput("Username: ");
-            String password = strInput("Password: ");
-
-            out.println("REGISTER");
-            out.println(username);
-            out.println(password);
-
-            System.out.println(in.readLine());
+        if (registerSuccess) {
+            System.out.println("[SYSTEM] Registered successfully.");
+        } else {
+            System.out.println("[SYSTEM] Username already exists.");
         }
     }
 
-    // CHAT
-    private static void chatLoop(PrintWriter out) {
-        System.out.println("Enter messages (type 'exit' to leave):");
+    // CHAT MODE
+    static void chat(PrintWriter out) {
+
+        System.out.println("TYPE EXIT TO LEAVE CHAT");
 
         while (true) {
+
             String msg = scanner.nextLine();
 
             if (msg.equalsIgnoreCase("exit")) {
-                out.println("EXIT"); // SIGNAL
+                out.println("EXIT");
                 break;
             }
 
             out.println(msg);
         }
+    }
+
+    static void sleep(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ignored) {}
     }
 }
