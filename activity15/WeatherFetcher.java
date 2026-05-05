@@ -58,6 +58,6 @@ public class WeatherFetcher {
             System.out.println(e.getMessage());
         }
 
-        scanner.close();
+        sc.close();
     }
 }
