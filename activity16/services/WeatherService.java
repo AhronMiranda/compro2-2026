@@ -1,7 +1,5 @@
 package com.weather.services;
 
-
-
 import com.google.gson.Gson;
 import com.weather.models.WeatherResponse;
 
@@ -38,14 +36,12 @@ public class WeatherService {
 
             HttpResponse<String> response = client.send(
                     request,
-                    HttpResponse.BodyHandlers.ofString()
-            );
+                    HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
                 WeatherResponse weather = gson.fromJson(
                         response.body(),
-                        WeatherResponse.class
-                );
+                        WeatherResponse.class);
 
                 if (weather != null
                         && weather.getForecasts() != null
